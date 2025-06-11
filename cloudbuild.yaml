@@ -1,17 +1,18 @@
-# Step 1: Build the Docker Image
-# This step builds your Docker image and tags it with the full path d
-# to your Google Artifact Registry repository.
-- name: gcr.io/cloud-builders/docker
-  args: [
-    'build',
-    '-t',
-    'us-docker.pkg.dev/disco-beach-461517-m5/my-react-repo/react-image:latest', # Corrected path for Artifact Registry
-    '.'
-  ]
-# Step 2: Push the Docker Image to Google Artifact Registry
-# This step pushes the tagged Docker image to the specified Artifact Registry repository.
-- name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'push',
-    'us-docker.pkg.dev/disco-beach-461517-m5/my-react-repo/react-image:latest'  # Corrected path for Artifact Registry
-  ]
+steps:
+  # Step 1: Build the Docker Image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t',
+      'us-docker.pkg.dev/disco-beach-461517-m5/gcr.io/react-image:latest', # Tagging as 'react-image:latest' in the 'gcr.io' repository
+      '.'
+    ]
+
+  # Step 2: Push the Docker Image to Google Artifact Registry
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      'us-docker.pkg.dev/disco-beach-461517-m5/gcr.io/react-image:latest' # Pushing 'react-image:latest' to the 'gcr.io' repository
+    ]
+
