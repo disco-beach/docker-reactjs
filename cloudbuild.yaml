@@ -31,10 +31,14 @@ steps:
 # images:
 #   - 'gcr.io/disco-beach-461517-m5/react-image:latest' # Uncomment to enable image output
 
-# This specifies a bucket where Cloud Build logs will be stored,
-# addressing previous errors related to custom service accounts and logging.
-# IMPORTANT: Replace 'YOUR_LOGS_BUCKET_NAME' with an actual existing GCS bucket name.
-# This bucket must be in the same project as your Cloud Build, and the Cloud Build
-# service account must have write permissions to it. If you are not using a custom
-# service account or if your project's default logging behavior is sufficient,
-# you might be able to remove this line.
+# Removed logsBucket as requested.
+# Using 'options' to control logging behavior, specifically default_logs_bucket_behavior.
+options:
+  # Use regional user-owned buckets for logs. This requires your project to have
+  # been configured for regional logging buckets. If this option doesn't work
+  # or if you prefer Cloud Logging only, you can use 'logging: CLOUD_LOGGING_ONLY'.
+  default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET
+  # Alternatively, send logs only to Cloud Logging (no GCS bucket for logs)
+  # logging: CLOUD_LOGGING_ONLY
+  # Or, disable all logging (not recommended for debugging)
+  # logging: NONE
