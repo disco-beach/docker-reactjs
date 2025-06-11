@@ -4,7 +4,7 @@ steps:
     args: [
       'build',
       '-t',
-      'us-docker.pkg.dev/disco-beach-461517-m5/gcr.io/react-image:latest', # Tagging as 'react-image:latest' in the 'gcr.io' repository
+      'us-docker.pkg.dev/react-image:latest', # Tagging as 'react-image:latest' in the 'gcr.io' repository
       '.'
     ]
 
@@ -13,6 +13,6 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'push',
-      'us-docker.pkg.dev/disco-beach-461517-m5/gcr.io/react-image:latest' # Pushing 'react-image:latest' to the 'gcr.io' repository
+      'us-docker.pkg.dev/react-image:latest' # Pushing 'react-image:latest' to the 'gcr.io' repository
     ]
 
