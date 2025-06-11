@@ -1,0 +1,11 @@
+ # Step 1: Build the Docker Image
+  - name: gcr.io/cloud-builders/docker
+    args: [
+      'build', 
+      '-t', 
+      'us-docker.pkg.dev/disco-beach-461517-m5/gcr.io/react-image:latest',
+      '.'
+    ]
+  # Step 2: Push the Docker Image to Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-docker.pkg.dev/disco-beach-461517-m5/gcr.io/react-image:latest']
