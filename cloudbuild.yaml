@@ -1,5 +1,5 @@
 # Step 1: Build the Docker Image
-# This step builds your Docker image and tags it with the full path
+# This step builds your Docker image and tags it with the full path d
 # to your Google Artifact Registry repository.
 - name: gcr.io/cloud-builders/docker
   args: [
