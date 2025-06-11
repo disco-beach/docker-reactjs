@@ -1,18 +1,40 @@
+# This Cloud Build configuration builds a Docker image and pushes it to Google Container Registry (GCR).
+
 steps:
   # Step 1: Build the Docker Image
+  # This step uses the 'docker' builder to build your Docker image.
+  # The '-t' flag tags the image with the full path for your Google Container Registry.
+  # The '.' indicates that the Dockerfile is in the current directory.
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',
       '-t',
-      'us-docker.pkg.dev/react-image:latest', # Tagging as 'react-image:latest' in the 'gcr.io' repository
+      'gcr.io/disco-beach-461517-m5/react-image:latest', # Tagging for Google Container Registry
       '.'
     ]
 
-  # Step 2: Push the Docker Image to Google Artifact Registry
-
+  # Step 2: Push the Docker Image to Google Container Registry
+  # This step uses the 'docker' builder again to push the previously built and tagged image
+  # to your specified GCR path. Cloud Build is automatically
+  # authenticated to push to GCR within the same project.
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'push',
-      'us-docker.pkg.dev/react-image:latest' # Pushing 'react-image:latest' to the 'gcr.io' repository
+      'gcr.io/disco-beach-461517-m5/react-image:latest' # Pushing to Google Container Registry
     ]
 
+# You can optionally specify a `timeout` for the entire build process.
+# timeout: '1200s' # 20 minutes (uncomment to enable)
+
+# You can also specify an `images` field to output the names of the images built,
+# which can be useful for subsequent steps or for viewing in the Cloud Build UI.
+# images:
+#   - 'gcr.io/disco-beach-461517-m5/react-image:latest' # Uncomment to enable image output
+
+# This specifies a bucket where Cloud Build logs will be stored,
+# addressing previous errors related to custom service accounts and logging.
+# IMPORTANT: Replace 'YOUR_LOGS_BUCKET_NAME' with an actual existing GCS bucket name.
+# This bucket must be in the same project as your Cloud Build, and the Cloud Build
+# service account must have write permissions to it. If you are not using a custom
+# service account or if your project's default logging behavior is sufficient,
+# you might be able to remove this line.
