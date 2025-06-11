@@ -12,6 +12,24 @@ steps:
       'gcr.io/disco-beach-461517-m5/react-image:latest', # Tagging for Google Container Registry
       '.'
     ]
+    # Step 3: Deploy the Docker Image to Cloud Run
+  # This step uses the 'gcloud' builder to deploy the image to Cloud Run.
+  # Replace 'my-react-service' with your desired Cloud Run service name.
+  # Replace 'us-central1' with the desired Google Cloud region for your Cloud Run service.
+  # '--allow-unauthenticated' makes the service publicly accessible; remove if not needed.
+  # '--port' specifies the port your application listens on within the container (e.g., 80 for HTTP).
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [
+      'run',
+      'deploy',
+      'react-app-service', # Name of your Cloud Run service
+      '--image', 'gcr.io/disco-beach-461517-m5/react-image:latest', # Image to deploy
+      '--region', 'us-central1', # Cloud Run region
+      '--platform', 'managed',
+      '--allow-unauthenticated', # Make the service publicly accessible (optional)
+      '--port', '80', # Specify the port your application listens on
+      '--project', 'disco-beach-461517-m5' # Specify your Google Cloud Project ID
+    ]
 
   # Step 2: Push the Docker Image to Google Container Registry
   # This step uses the 'docker' builder again to push the previously built and tagged image
